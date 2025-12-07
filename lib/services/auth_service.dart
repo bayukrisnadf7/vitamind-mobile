@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:vitamind_mobile/models/UserModel.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
 
 class AuthService {
   static const String baseUrl = 'http://192.168.18.27:3000/api/auth';

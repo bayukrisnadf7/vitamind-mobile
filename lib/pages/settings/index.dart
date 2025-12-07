@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_sign_in/google_sign_in.dart'; // ✅ Tambahkan ini
+import 'package:google_sign_in/google_sign_in.dart'; 
 import 'package:vitamind_mobile/pages/auth/login.dart';
 import 'package:vitamind_mobile/pages/settings/about.dart';
 import 'package:vitamind_mobile/pages/settings/account.dart';
@@ -17,7 +17,6 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
-  int _selectedIndex = 0;
   String? nama = '';
   String? email = '';
   String? gender = '';
@@ -65,17 +64,6 @@ class _SettingState extends State<Setting> {
     });
   }
 
-  void _onItemTapped(int index) {
-    if (index == _selectedIndex) return;
-
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 0) {
-      Navigator.pop(context);
-    }
-  }
 
   Future<void> _logoutUser() async {
     final prefs = await SharedPreferences.getInstance();

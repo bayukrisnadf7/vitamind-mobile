@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitamind_mobile/pages/settings/index.dart';
+import 'package:vitamind_mobile/pages/skrinning/skrining_controller.dart';
 
 class InformedConsent extends StatefulWidget {
   const InformedConsent({super.key});
@@ -13,6 +14,7 @@ class InformedConsent extends StatefulWidget {
 
 class _InformedConsentState extends State<InformedConsent> {
   String? nama = "";
+  final SkriningController skriningController = Get.find<SkriningController>();
 
   @override
   void initState() {
@@ -43,13 +45,9 @@ class _InformedConsentState extends State<InformedConsent> {
           child: Column(
             children: [
               const SizedBox(height: 5.0),
-              HeaderSection(
-                nama: _getFirstTwoWords(nama),
-              ),
+              HeaderSection(nama: _getFirstTwoWords(nama)),
               const SizedBox(height: 20),
-              Expanded(
-                child: MainSection(),
-              ),
+              MainSection(skriningController: skriningController),
             ],
           ),
         ),
@@ -113,93 +111,89 @@ class HeaderSection extends StatelessWidget {
 }
 
 class MainSection extends StatelessWidget {
-  const MainSection({super.key});
+  final SkriningController skriningController;
+
+  const MainSection({super.key, required this.skriningController});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          'assets/images/informed_consent.png',
-          height: 200,
-          fit: BoxFit.contain,
-        ),
-        const SizedBox(height: 24),
-
-        const Text(
-          'Data Tepat, Skrining Lebih Akurat',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/informed_consent.png',
+            height: 200,
+            fit: BoxFit.contain,
           ),
-        ),
-        const SizedBox(height: 24),
-
-        const Text(
-          'Yuk isi data dengan benar dan jujur saat menjawab skrining 😉\n'
-          'Dengan begitu, hasilnya akan lebih tepat dan bermanfaat buat kamu.',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 16,
-            height: 1.5,
-            color: Colors.black54,
-          ),
-        ),
-        const SizedBox(height: 32),
-
-        SizedBox(
-          height: 50,
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              debugPrint("Selanjutnya ditekan");
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF4A90E2),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              elevation: 0,
+          const SizedBox(height: 24),
+          const Text(
+            'Data Tepat, Skrining Lebih Akurat',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
-            child: const Text(
-              'Selanjutnya',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
+          ),
+          const SizedBox(height: 24),
+          const Text(
+            'Yuk isi data dengan benar dan jujur saat menjawab skrining 😉\n'
+            'Dengan begitu, hasilnya akan lebih tepat dan bermanfaat buat kamu.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, height: 1.5, color: Colors.black54),
+          ),
+          const SizedBox(height: 32),
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                skriningController.nextStep(); // Pindah ke DataDiriForm
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4A90E2),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                elevation: 0,
+              ),
+              child: const Text(
+                'Selanjutnya',
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 16),
-
-        SizedBox(
-          height: 50,
-          width: double.infinity,
-          child: OutlinedButton.icon(
-            onPressed: () => Get.back(),
-            icon: const Icon(Icons.undo, color: Colors.black54),
-            label: const Text(
-              'Kembali',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-                color: Colors.black54,
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: () => Get.back(),
+              icon: const Icon(Icons.undo, color: Colors.black54),
+              label: const Text(
+                'Kembali',
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black54,
+                ),
               ),
-            ),
-            style: OutlinedButton.styleFrom(
-              backgroundColor: const Color(0xFFD3D3D3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: const Color(0xFFD3D3D3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                side: BorderSide.none,
               ),
-              side: BorderSide.none,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

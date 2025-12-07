@@ -1,0 +1,358 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "Apakah anda pernah menikah?",
+      "expert_recommendation": "Apakah anda sudah menikah?",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Sudah menikah", "next_question_id": 2, "value": 2, "education": null},
+        {"answer": "Belum menikah", "next_question_id": 3, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 2,
+      "text": "Pada usia berapa anda menikah?",
+      "expert_recommendation": "Sesuai (pertanyaan muncul ketika jawaban sudah menikah)",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "10 - 15 tahun", "next_question_id": 4, "value": 3, "education": null},
+        {"answer": "15 - 20 tahun", "next_question_id": 4, "value": 2, "education": null},
+        {"answer": "> 20 tahun", "next_question_id": 4, "value": 1, "education": null}
+      ]
+    },
+    {
+      "id": 3,
+      "text": "Mana yang menggambarkan kondisi status anda saat ini?",
+      "expert_recommendation": "Apakah anda menikah atau hidup dengan seseoarang yang telah berhubungan seksual denganmu?",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Menikah dan tinggal dengan pasangan", "next_question_id": 4, "value": 1, "education": null},
+        {"answer": "Menikah, tapi tinggal dengan pasangan lain", "next_question_id": 4, "value": 2, "education": null},
+        {"answer": "Menikah, tapi tidak tinggal dengan pasangan", "next_question_id": 4, "value": 1, "education": null},
+        {"answer": "Tidak menikah, tapi hidup dengan pasangan", "next_question_id": 4, "value": 2, "education": null},
+        {"answer": "Tidak menikah dan tidak tinggal dengan pasangan", "next_question_id": 5, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 4,
+      "text": "Apakah anda memiliki pasangan lebih dari satu?",
+      "expert_recommendation": "Jika menikah: Pria: apakah anda punya banyak istri? Wanita: apakah suami anda punya istri lain?",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Ya", "next_question_id": 5, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": 5, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 5,
+      "text": "Apakah anda pernah melakukan hubungan seksual?",
+      "expert_recommendation": "Valid",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 6, "value": 2, "education": null},
+        {"answer": "Tidak pernah", "next_question_id": 101, "value": 0, "education": null},
+        {"answer": "Tidak ada tanggapan", "next_question_id": 101, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 6,
+      "text": "Saat usia berapa anda pertama kali melakukan hubungan seksual?",
+      "expert_recommendation": null,
+      "category": "Psikologi",
+      "options": [
+        {"answer": "5 - 10 tahun", "next_question_id": 7, "value": 3, "education": null},
+        {"answer": "11 - 15 tahun", "next_question_id": 7, "value": 2, "education": null},
+        {"answer": "16 - 20 tahun", "next_question_id": 7, "value": 1, "education": null},
+        {"answer": ">20 tahun", "next_question_id": 7, "value": 0, "education": null},
+        {"answer": "Tidak tahu", "next_question_id": 7, "value": 0, "education": null},
+        {"answer": "Tidak ada tanggapan", "next_question_id": 7, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 7,
+      "text": "Dalam 1 tahun terakhir ini apakah anda pernah melakukan hubungan seksual?",
+      "expert_recommendation": null,
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 8, "value": 2, "education": null},
+        {"answer": "Tidak pernah", "next_question_id": 9, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 8,
+      "text": "Dalam 1 tahun terakhir ini berapa jumlah pasangan yang telah melakukan hubungan seksual dengan anda?",
+      "expert_recommendation": null,
+      "category": "Psikologi",
+      "options": [
+        {"answer": "1", "next_question_id": 9, "value": 1, "education": null},
+        {"answer": "2", "next_question_id": 9, "value": 2, "education": null},
+        {"answer": "3", "next_question_id": 9, "value": 3, "education": null},
+        {"answer": ">3", "next_question_id": 9, "value": 3, "education": null}
+      ]
+    },
+    {
+      "id": 9,
+      "text": "Pernahkah anda melakukan hubungan seksual dengan sesama jenis?",
+      "expert_recommendation": null,
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 10, "value": 3, "education": null},
+        {"answer": "Tidak pernah", "next_question_id": 11, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 10,
+      "text": "Berapa jumlah pasangan sesama jenis yang telah melakukan hubungan seksual dengan anda?",
+      "expert_recommendation": null,
+      "category": "Psikologi",
+      "options": [
+        {"answer": "1", "next_question_id": 11, "value": 1, "education": null},
+        {"answer": "2", "next_question_id": 11, "value": 2, "education": null},
+        {"answer": "3", "next_question_id": 11, "value": 3, "education": null},
+        {"answer": ">3", "next_question_id": 11, "value": 3, "education": null}
+      ]
+    },
+    {
+      "id": 11,
+      "text": "Pernahkan anda pernah melakukan hubungan seksual dengan seseorang yang anda hubungi melalui media online/offline?",
+      "expert_recommendation": "Pernah berhubungan seksual dengan PSK, sebanyak …….",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Tidak pernah", "next_question_id": 101, "value": 0, "education": null},
+        {"answer": "Pernah, sebanuyak 1 kali", "next_question_id": 12, "value": 1, "education": "Edukasi mengenai seks bebas"},
+        {"answer": "Pernah, sebanuyak 2 kali", "next_question_id": 12, "value": 2, "education": "Edukasi mengenai seks bebas"},
+        {"answer": "Pernah, sebanuyak 3 kali", "next_question_id": 12, "value": 3, "education": "Edukasi mengenai seks bebas"},
+        {"answer": "Pernah lebih dari 3 kali", "next_question_id": 12, "value": 3, "education": "Edukasi mengenai seks bebas"}
+      ]
+    },
+    {
+      "id": 12,
+      "text": "Berapa kali anda melakukan hubungan seksual dengan seseorang yang anda hubungi melalui media online/offline dalam 1 bulan terakhir?",
+      "expert_recommendation": "Dalam 1 bulan terakhir berapa kali berhubungan dengan PSK?",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Tidak pernah", "next_question_id": 101, "value": 0, "education": null},
+        {"answer": "1-5 kali", "next_question_id": 13, "value": 1, "education": null},
+        {"answer": "5-10 kali", "next_question_id": 13, "value": 2, "education": null},
+        {"answer": "10-20 kali", "next_question_id": 13, "value": 3, "education": null}
+      ]
+    },
+    {
+      "id": 13,
+      "text": "Apakah dalam berhubungan seksual anda menggunakan alat pengaman?",
+      "expert_recommendation": "Apakah dalam berhubungan seksual dengan PSK anda menggunakan kondom?",
+      "category": "Psikologi",
+      "options": [
+        {"answer": "Ya", "next_question_id": 101, "value": 0, "education": null},
+        {"answer": "Tidak", "next_question_id": 101, "value": 3, "education": null},
+        {"answer": "Kadang - kadang", "next_question_id": 101, "value": 2, "education": null}
+      ]
+    },
+    {
+      "id": 101,
+      "text": "Pernahkah anda mendengar tentang penyakit menular seksual (PMS) yang dapat ditularkan dari hubungan seksual?",
+      "expert_recommendation": null,
+      "category": "PMS",
+      "options": [
+        {"answer": "Ya", "next_question_id": 102, "value": 0, "education": null},
+        {"answer": "Tidak", "next_question_id": 102, "value": 2, "education": "Edukasi tentang PMS"}
+      ]
+    },
+    {
+      "id": 102,
+      "text": "Dalam 6 bulan terakhir, Apakah anda pernah mengalami keluhan pada alat kelamin anda?",
+      "expert_recommendation": "Pernahkah anda dalam 1 tahun terakhir mengalami gangguan alat genital?",
+      "category": "PMS",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 103, "value": 3, "education": null},
+        {"answer": "Tidak pernah", "next_question_id": 201, "value": 0, "education": "Edukasi mengenai Alat Kelamin (jenis - jenis keluhan dan penyakitnya)"}
+      ]
+    },
+    {
+      "id": 103,
+      "text": "Dalam 6 bulan terakhir, Pernahkah anda mengalami luka pada alat kelamin anda?",
+      "expert_recommendation": "Pernahkah anda dalam 1 tahun terakhir ada luka pada alat genital?",
+      "category": "PMS",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 201, "value": 3, "education": null},
+        {"answer": "Tidak pernah", "next_question_id": 201, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 201,
+      "text": "Dalam 4 bulan terakhir seberapa sering anda mengkonsumsi minuman beralkhol?",
+      "expert_recommendation": null,
+      "category": "HIV/AIDS",
+      "options": [
+        {"answer": "Tidak pernah", "next_question_id": 202, "value": 0, "education": null},
+        {"answer": "Setiap hari", "next_question_id": 202, "value": 3, "education": null},
+        {"answer": "Setiap minggu", "next_question_id": 202, "value": 2, "education": null},
+        {"answer": "Setiap bulan", "next_question_id": 202, "value": 1, "education": null}
+      ]
+    },
+    {
+      "id": 202,
+      "text": "Apakah anda memiliki ketergantungan pada satu jenis obat?",
+      "expert_recommendation": null,
+      "category": "HIV/AIDS",
+      "options": [
+        {"answer": "Ya", "next_question_id": 203, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": 203, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 203,
+      "text": "Apakah anda pernah menggunakan obat yang menggunakan jarum suntik?",
+      "expert_recommendation": null,
+      "category": "HIV/AIDS",
+      "options": [
+        {"answer": "Ya", "next_question_id": 204, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": 204, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 204,
+      "text": "Apakah anda memiliki tato?",
+      "expert_recommendation": null,
+      "category": "HIV/AIDS",
+      "options": [
+        {"answer": "Ya", "next_question_id": 205, "value": 1, "education": null},
+        {"answer": "Tidak", "next_question_id": 205, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 205,
+      "text": "Apakah anda pernah ditindik?",
+      "expert_recommendation": null,
+      "category": "HIV/AIDS",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 206, "value": 1, "education": null},
+        {"answer": "Tidak Pernah", "next_question_id": 206, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 206,
+      "text": "Apakah anda pernah menggunakan alat cukur yang digunakan oleh banyak orang?",
+      "expert_recommendation": "Apakah anda pernah mencukur/ dicukur dengan menggunakan silet/pemes/alat cukur lainnya",
+      "category": "HIV/AIDS",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 301, "value": 2, "education": null},
+        {"answer": "Tidak Pernah", "next_question_id": 301, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 301,
+      "text": "Apakah anda pernah melakukan hubungan seks melalui alat kelamin?",
+      "expert_recommendation": "Apakah anda pernah melakukan hubungan seks vaginal?",
+      "category": "Resiko",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 302, "value": 3, "education": null},
+        {"answer": "Tidak Pernah", "next_question_id": 303, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 302,
+      "text": "Seberapa sering anda melakukan hubungan seks melalui alat kelamin?",
+      "expert_recommendation": "Kapan anda pernah melakukan hubungan seks vaginal beresiko?",
+      "category": "Resiko",
+      "options": [
+        {"answer": "Setiap hari", "next_question_id": 303, "value": 3, "education": null},
+        {"answer": "Seminggu 5 kali", "next_question_id": 303, "value": 3, "education": null},
+        {"answer": "Seminggu 3 kali", "next_question_id": 303, "value": 2, "education": null},
+        {"answer": "Seminggu 1 kali", "next_question_id": 303, "value": 1, "education": null},
+        {"answer": "1 bulan sekali", "next_question_id": 303, "value": 1, "education": null}
+      ]
+    },
+    {
+      "id": 303,
+      "text": "Apakah anda pernah melakukan hubungan seks anal?",
+      "expert_recommendation": "Apakah Anda pernah melakukan hubungan seks anal yang berisiko",
+      "category": "Resiko",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 304, "value": 3, "education": "Pengeritan Anal"},
+        {"answer": "Tidak Pernah", "next_question_id": 305, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 304,
+      "text": "Seberapa sering anda melakukan hubungan seks anal?",
+      "expert_recommendation": "Kapan anda pernah melakukan hubungan seks anal beresiko?",
+      "category": "Resiko",
+      "options": [
+        {"answer": "Setiap hari", "next_question_id": 305, "value": 3, "education": null},
+        {"answer": "Seminggu 5 kali", "next_question_id": 305, "value": 3, "education": null},
+        {"answer": "Seminggu 3 kali", "next_question_id": 305, "value": 2, "education": null},
+        {"answer": "Seminggu 1 kali", "next_question_id": 305, "value": 1, "education": null},
+        {"answer": "1 bulan sekali", "next_question_id": 305, "value": 1, "education": null}
+      ]
+    },
+    {
+      "id": 305,
+      "text": "Apakah Anda pernah bergantian menggunakan peralatan suntik (jarum suntik, alat narkoba suntik, dll.)?",
+      "expert_recommendation": null,
+      "category": "Resiko",
+      "options": [
+        {"answer": "Pernah", "next_question_id": 306, "value": 3, "education": null},
+        {"answer": "Tidak Pernah", "next_question_id": 307, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 306,
+      "text": "Kapan anda pernah bergantian menggunakan peralatan suntik (jarum suntik, alat narkoba suntik, dll.)?",
+      "expert_recommendation": null,
+      "category": "Resiko",
+      "options": [
+        {"answer": "Setiap hari", "next_question_id": 307, "value": 3, "education": null},
+        {"answer": "Seminggu 5 kali", "next_question_id": 307, "value": 3, "education": null},
+        {"answer": "Seminggu 3 kali", "next_question_id": 307, "value": 2, "education": null},
+        {"answer": "Seminggu 1 kali", "next_question_id": 307, "value": 1, "education": null},
+        {"answer": "1 bulan sekali", "next_question_id": 307, "value": 1, "education": null}
+      ]
+    },
+    {
+      "id": 307,
+      "text": "Apakah Anda pernah menerima transfusi darah?",
+      "expert_recommendation": null,
+      "category": "Resiko",
+      "options": [
+        {"answer": "Ya", "next_question_id": 308, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": 309, "value": 0, "education": null}
+      ]
+    },
+    {
+      "id": 308,
+      "text": "Kapan anda pernah menerima tranfusi darah?",
+      "expert_recommendation": null,
+      "category": "Resiko",
+      "options": [
+        {"answer": "1 tahun terakhir", "next_question_id": 309, "value": 3, "education": null},
+        {"answer": "6 bulan terakhir", "next_question_id": 309, "value": 2, "education": null},
+        {"answer": "3 bulan terakhir", "next_question_id": 309, "value": 1, "education": null},
+        {"answer": "1 bulan terakhir", "next_question_id": 309, "value": 1, "education": null}
+      ]
+    },
+    {
+      "id": 309,
+      "text": "Apakah anda lahir dari orang tua (ibu) yang memiliki penyakit HIV?",
+      "expert_recommendation": "Apakah Anda lahir dari ibu yang hidup dengan HIV (transmisi ibu ke anak)?",
+      "category": "Resiko",
+      "options": [
+        {"answer": "Ya", "next_question_id": 310, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": 310, "value": 0, "education": null},
+        {"answer": "Tidak Tahu", "next_question_id": 310, "value": 1, "education": null}
+      ]
+    },
+    {
+      "id": 310,
+      "text": "Apakah anda pernah berada dalam periode jendela (Window Period) HIV?",
+      "expert_recommendation": "Apakah Anda pernah berada dalam periode jendela (window period), yaitu dalam 3 bulan terakhir setelah melakukan perilaku berisiko?",
+      "category": "Resiko",
+      "options": [
+        {"answer": "Ya", "next_question_id": -1, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": -1, "value": 0, "education": null},
+        {"answer": "Tidak Tahu", "next_question_id": -1, "value": 1, "education": null}
+      ]
+    }
+  ]
+}

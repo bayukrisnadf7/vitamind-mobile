@@ -29,7 +29,8 @@ class _PsikologPageState extends State<PsikologPage> {
 
   List<Province> _provinces = [];
   List<Regency> _regencies = [];
-  List<PsikologModel> _riwayat = [];
+  List<Map<String, dynamic>> _riwayatSimulasi =
+      []; // Menggunakan Map untuk status simulasi
   String? _selectedProvinsi;
   String? _selectedKabupaten;
   String? nama = '';
@@ -74,9 +75,30 @@ class _PsikologPageState extends State<PsikologPage> {
 
   Future<void> _fetchRiwayat(String userId) async {
     setState(() => _isLoadingRiwayat = true);
+
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
-      final data = await PsikologService.getPendaftaranPsikolog(userId);
-      setState(() => _riwayat = data);
+      // final data = await PsikologService.getPendaftaranPsikolog(userId); // Kode API Asli
+
+      // Data Dummy Riwayat dengan Status Simulasi
+      final dummyRiwayat = [
+        {
+          'pendaftaran_id': '1',
+          'nama': 'Pendaftaran 1',
+          'status': 'Diterima',
+          'tanggal': DateTime.now().subtract(const Duration(days: 5)),
+          'klinik': 'Klinik Pratama Polije',
+        },
+        {
+          'pendaftaran_id': '2',
+          'nama': 'Pendaftaran 2',
+          'status': 'Menunggu',
+          'tanggal': DateTime.now().add(const Duration(days: 2)),
+          'klinik': 'Klinik Pratama Polije',
+        },
+      ];
+
+      setState(() => _riwayatSimulasi = dummyRiwayat);
     } catch (e) {
       print('Gagal ambil riwayat: $e');
     } finally {
@@ -85,6 +107,7 @@ class _PsikologPageState extends State<PsikologPage> {
   }
 
   Future<void> _fetchProvinces() async {
+    setState(() => _isLoadingProvinsi = true);
     try {
       final provinces = await ProvinceApi.getProvinces();
       setState(() {
@@ -92,6 +115,8 @@ class _PsikologPageState extends State<PsikologPage> {
       });
     } catch (e) {
       print('Gagal ambil provinsi: $e');
+    } finally {
+      setState(() => _isLoadingProvinsi = false);
     }
   }
 
@@ -106,10 +131,24 @@ class _PsikologPageState extends State<PsikologPage> {
       "user_id": _userIdController.text,
     };
 
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => SuccessModal(
+        onClose: () {
+          Navigator.pop(context);
+          _fetchRiwayat(_userIdController.text);
+          setState(() => _selectedTabIndex = 1);
+        },
+      ),
+    );
+
+    /* // FUNGSI ASLI HIT API 
     try {
       await PsikologService.registerPsikolog(data);
 
-      // tampilkan popup sukses
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -125,7 +164,8 @@ class _PsikologPageState extends State<PsikologPage> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Gagal daftar: $e")));
-    }
+    } 
+    */
   }
 
   Future<void> _fetchRegencies(String provinceCode) async {
@@ -151,6 +191,10 @@ class _PsikologPageState extends State<PsikologPage> {
     if (fullName == null || fullName.isEmpty) return '';
     final words = fullName.trim().split(' ');
     return words.take(2).join(' ');
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
   }
 
   @override
@@ -265,7 +309,6 @@ class _PsikologPageState extends State<PsikologPage> {
     );
   }
 
-  // ===== TOGGLE BUTTONS (Pendaftaran / Riwayat) =====
   Widget _buildToggleButtons() {
     return Row(
       children: [
@@ -313,7 +356,6 @@ class _PsikologPageState extends State<PsikologPage> {
           );
   }
 
-  // ===== FORM PENDAFTARAN =====
   Widget _buildRegistrationForm() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -513,17 +555,14 @@ class _PsikologPageState extends State<PsikologPage> {
     );
   }
 
-  // ===== VIEW RIWAYAT KOSONG =====
   Widget _buildHistoryView() {
     if (_isLoadingRiwayat) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (_riwayat.isEmpty) {
+    if (_riwayatSimulasi.isEmpty) {
       return SizedBox(
-        height:
-            MediaQuery.of(context).size.height *
-            0.45, // menggeser lebih ke tengah
+        height: MediaQuery.of(context).size.height * 0.45,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -547,59 +586,95 @@ class _PsikologPageState extends State<PsikologPage> {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: _riwayat.length,
+      itemCount: _riwayatSimulasi.length,
       itemBuilder: (context, index) {
-        final item = _riwayat[index];
-        return Card(
-          margin: const EdgeInsets.only(bottom: 12),
-          shape: RoundedRectangleBorder(
+        final item = _riwayatSimulasi[index];
+
+        final isDiterima = item['status'] == 'Diterima';
+        final statusColor = isDiterima
+            ? const Color(0xFF00BFA5)
+            : const Color(0xFFFFC300);
+        final statusText = isDiterima
+            ? 'Status pendaftaran diterima'
+            : 'Status pendaftaran menunggu';
+        final tanggalKonsultasi = isDiterima
+            ? _formatDate(item['tanggal'] as DateTime)
+            : null;
+
+        return Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: const Color(0xFF4A90E2),
             borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                blurRadius: 5,
+                spreadRadius: 2,
+              ),
+            ],
           ),
-          child: ListTile(
-            leading: const Icon(
-              Icons.date_range,
-              color: Colors.blueAccent,
-              size: 32,
-            ),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  item.nama,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 10,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      color: statusColor,
+                      shape: BoxShape.circle,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Tgl. Konsultasi: 0241',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
+                  const SizedBox(width: 8),
+                  Text(
+                    statusText,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Klinik Pratama Polije',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                ],
+              ),
+              if (isDiterima) ...[
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_today_outlined,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Tanggal konsultasi : $tanggalKonsultasi',
+                      style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ),
-            dense: true,
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 16,
-            ),
-            visualDensity: const VisualDensity(vertical: 0),
-            minLeadingWidth: 40,
-            minVerticalPadding: 0,
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Icon(Icons.location_on, color: Colors.red, size: 20),
+                  const SizedBox(width: 8),
+                  Text(
+                    item['klinik'],
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

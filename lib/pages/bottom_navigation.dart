@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vitamind_mobile/pages/home.dart';
 import 'package:vitamind_mobile/pages/psikolog/index.dart';
-import 'package:vitamind_mobile/pages/settings/account.dart';
-import 'package:vitamind_mobile/pages/settings/index.dart';
-import 'package:vitamind_mobile/pages/settings/privacy.dart';
-import 'package:vitamind_mobile/pages/skrinning/Informed_consent.dart';
-import 'package:vitamind_mobile/pages/skrinning/index.dart';
+import 'package:vitamind_mobile/pages/skrinning/skrining_view.dart';
 import 'package:vitamind_mobile/themes/color.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -16,19 +13,35 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
+  // Inisialisasi _selectedIndex dengan 0 (default)
   int _selectedIndex = 0;
 
-  // daftar halaman
-  final List<Widget> _pages = const [
-    Home(),
-    InformedConsent(),
-    PsikologPage(),
-  ];
+  // Daftar halaman
+  late final List<Widget> _pages;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void goToSkriningTab() {
+    _onItemTapped(1);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Cek apakah ada argumen yang dikirim (dari SkriningResultPage)
+    if (Get.arguments is int) {
+      _selectedIndex = Get.arguments;
+    }
+
+    _pages = [
+      Home(onStartScreening: goToSkriningTab),
+      const SkriningView(),
+      const PsikologPage(),
+    ];
   }
 
   @override
@@ -44,7 +57,7 @@ class _MainNavigationState extends State<MainNavigation> {
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
-          BoxShadow( 
+          BoxShadow(
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 10,

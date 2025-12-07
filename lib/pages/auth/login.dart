@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitamind_mobile/models/UserModel.dart';
 import 'package:vitamind_mobile/pages/forgot_password/index.dart';
-import 'package:vitamind_mobile/pages/home.dart';
 import 'package:vitamind_mobile/pages/bottom_navigation.dart';
 import 'package:vitamind_mobile/pages/auth/register.dart';
 import 'package:vitamind_mobile/services/auth_service.dart';
@@ -27,45 +25,54 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  static const String DUMMY_EMAIL = "angga@gmail.com";
+  static const String DUMMY_PASSWORD = "password123";
+  static const String DUMMY_USER_NAME = "Dania Angga";
+  static const String DUMMY_USER_ID = "99999";
+
   Future<void> _handleLogin() async {
     setState(() => _isLoading = true);
 
-    try {
-      final user = await AuthService.login(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
-      );
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
 
-      if (user != null && user.email != null) {
+    try {
+      // Pengecekan hanya untuk data dummy
+      if (email == DUMMY_EMAIL && password == DUMMY_PASSWORD) {
+        // Login Dummy Berhasil
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('nama', user.nama);
-        await prefs.setString('email', user.email);
-        await prefs.setString('user_id', user.user_id);
+        await prefs.setString('nama', DUMMY_USER_NAME);
+        await prefs.setString('email', DUMMY_EMAIL);
+        await prefs.setString('user_id', DUMMY_USER_ID);
+
         Get.snackbar(
-          'Login berhasil',
-          'Selamat datang, ${user.nama}!',
+          'Login berhasil (Dummy)',
+          'Selamat datang, $DUMMY_USER_NAME!',
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green.withOpacity(0.8),
+          backgroundColor: Colors.blue.withOpacity(0.8),
           colorText: Colors.white,
           margin: const EdgeInsets.all(12),
           borderRadius: 10,
         );
         Get.offAll(() => const MainNavigation());
       } else {
+        // Login Gagal karena bukan data dummy yang diminta
         Get.snackbar(
           'Login gagal',
-          'Email atau password salah',
+          'Aplikasi ini sedang dalam mode pengujian. Hanya email "$DUMMY_EMAIL" dengan password "$DUMMY_PASSWORD" yang diperbolehkan.',
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.redAccent.withOpacity(0.8),
           colorText: Colors.white,
           margin: const EdgeInsets.all(12),
           borderRadius: 10,
+          duration: const Duration(seconds: 4),
         );
       }
     } catch (e) {
+      // Catch blok dipertahankan untuk keamanan, meskipun tidak ada panggilan API di sini
       Get.snackbar(
         'Kesalahan',
-        'Terjadi kesalahan: $e',
+        'Terjadi kesalahan saat login: $e',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.redAccent.withOpacity(0.8),
         colorText: Colors.white,
@@ -77,11 +84,16 @@ class _LoginState extends State<Login> {
     }
   }
 
+  // Fungsi Google Login tidak diubah dan tetap menggunakan API
   Future<void> _handleGoogleLogin() async {
     setState(() => _isLoading = true);
 
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email'], serverClientId: "752964760317-tl19rniqhqkq7iafdfuhfdcqgehuq73g.apps.googleusercontent.com");
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: ['email'],
+        serverClientId:
+            "752964760317-tl19rniqhqkq7iafdfuhfdcqgehuq73g.apps.googleusercontent.com",
+      );
 
       final GoogleSignInAccount? account = await googleSignIn.signIn();
 
@@ -190,7 +202,6 @@ class _LoginState extends State<Login> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // --- Judul Form ---
                         Text(
                           'Selamat Datang',
                           textAlign: TextAlign.center,
@@ -209,8 +220,6 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         const SizedBox(height: 30),
-
-                        // --- Input Email ---
                         TextField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
@@ -226,8 +235,6 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         const SizedBox(height: 16),
-
-                        // --- Input Password ---
                         TextField(
                           controller: _passwordController,
                           obscureText: _isPasswordObscured,
@@ -255,8 +262,6 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         const SizedBox(height: 12),
-
-                        // --- Lupa Password ---
                         Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
@@ -273,8 +278,6 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         const SizedBox(height: 20),
-
-                        // --- Tombol Login ---
                         ElevatedButton(
                           onPressed: _isLoading ? null : _handleLogin,
                           style: ElevatedButton.styleFrom(
@@ -304,8 +307,6 @@ class _LoginState extends State<Login> {
                                 ),
                         ),
                         const SizedBox(height: 20),
-
-                        // --- Link Register ---
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -335,8 +336,6 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 30),
-
-                  // --- Divider "Atau" ---
                   Row(
                     children: [
                       const Expanded(child: Divider()),
@@ -351,8 +350,6 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                   const SizedBox(height: 30),
-
-                  // --- Tombol Login Google ---
                   OutlinedButton.icon(
                     onPressed: () {
                       _handleGoogleLogin();
@@ -361,10 +358,7 @@ class _LoginState extends State<Login> {
                       'assets/images/google.png',
                       height: 20.0,
                       errorBuilder: (context, error, stackTrace) {
-                        return const Icon(
-                          Icons.android,
-                          color: Colors.black54,
-                        ); // Placeholder
+                        return const Icon(Icons.android, color: Colors.black54);
                       },
                     ),
                     label: const Text(

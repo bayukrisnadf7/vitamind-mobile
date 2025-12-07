@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vitamind_mobile/pages/bottom_navigation.dart';
 import 'package:vitamind_mobile/pages/settings/index.dart';
-import 'package:vitamind_mobile/pages/skrinning/informed_consent.dart';
 import 'package:vitamind_mobile/themes/color.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final VoidCallback onStartScreening;
+
+  const Home({super.key, required this.onStartScreening});
 
   @override
   State<Home> createState() => _HomeState();
@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String? nama = '';
+
   String _getFirstTwoWords(String? fullName) {
     if (fullName == null || fullName.isEmpty) return '';
     final words = fullName.trim().split(' ');
@@ -41,32 +42,31 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Colors.white,
-    body: SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 5),
-              _buildHeader(),
-              const SizedBox(height: 24),
-              _buildWelcomeCard(),
-              const SizedBox(height: 24),
-              _buildHistoryCard(),
-              const SizedBox(height: 24),
-              _buildArticleSection(),
-            ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 5),
+                _buildHeader(),
+                const SizedBox(height: 24),
+                _buildWelcomeCard(),
+                const SizedBox(height: 24),
+                _buildHistoryCard(),
+                const SizedBox(height: 24),
+                _buildArticleSection(),
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-  // Widget untuk Header
   Widget _buildHeader() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -119,7 +119,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Widget untuk Kartu Selamat Datang
   Widget _buildWelcomeCard() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -187,7 +186,7 @@ class _HomeState extends State<Home> {
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Get.to(() => const InformedConsent());
+                      widget.onStartScreening();
                     },
                     icon: Image.asset(
                       'assets/images/maki_doctor.png',
@@ -224,7 +223,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Widget untuk Kartu Riwayat Skrining
   Widget _buildHistoryCard() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -290,7 +288,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Widget untuk bagian Artikel
   Widget _buildArticleSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -320,9 +317,8 @@ class _HomeState extends State<Home> {
           height: 150,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 3, // Jumlah artikel
+            itemCount: 3,
             itemBuilder: (context, index) {
-              // Anda bisa mengganti ini dengan data dinamis
               final List<String> images = [
                 'assets/images/artikel.png',
                 'assets/images/artikel.png',
@@ -338,9 +334,7 @@ class _HomeState extends State<Home> {
                 width: 250,
                 margin: EdgeInsets.only(
                   left: index == 0 ? 20.0 : 16.0,
-                  right: index == 2
-                      ? 20.0
-                      : 0, // Margin kanan untuk item terakhir
+                  right: index == 2 ? 20.0 : 0,
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
