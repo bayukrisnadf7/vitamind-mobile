@@ -160,9 +160,19 @@ class _QuestionPageState extends State<QuestionPage> {
     TextSpan content;
     final baseStyle = const TextStyle(color: Colors.black, fontSize: 14);
 
-    if (eduText != null && questionId == 12) {
-      const keyword = "hubungan seksual";
-      final index = text.indexOf(keyword);
+    final Map<int, String> keywordMap = {
+      11: "hubungan seksual",
+      12: "hubungan seksual",
+      101: "penyakit menular seksual",
+      102: "alat kelamin",
+      303: "seks anal",
+    };
+
+    if (eduText != null &&
+        questionId != null &&
+        keywordMap.containsKey(questionId)) {
+      final keyword = keywordMap[questionId]!;
+      final index = text.toLowerCase().indexOf(keyword.toLowerCase());
 
       if (index != -1) {
         content = TextSpan(
@@ -170,7 +180,7 @@ class _QuestionPageState extends State<QuestionPage> {
           style: baseStyle,
           children: [
             TextSpan(
-              text: keyword,
+              text: text.substring(index, index + keyword.length),
               style: baseStyle.copyWith(
                 color: const Color(0xFF4A90E2),
                 fontWeight: FontWeight.bold,

@@ -31,7 +31,8 @@
         {"answer": "Menikah, tapi tinggal dengan pasangan lain", "next_question_id": 4, "value": 2, "education": null},
         {"answer": "Menikah, tapi tidak tinggal dengan pasangan", "next_question_id": 4, "value": 1, "education": null},
         {"answer": "Tidak menikah, tapi hidup dengan pasangan", "next_question_id": 4, "value": 2, "education": null},
-        {"answer": "Tidak menikah dan tidak tinggal dengan pasangan", "next_question_id": 5, "value": 0, "education": null}
+        {"answer": "Tidak menikah dan tidak tinggal dengan pasangan", "next_question_id": 4, "value": 0, "education": null},
+        {"answer": "Tidak ada tanggapan", "next_question_id": 4, "value": 0, "education": null}
       ]
     },
     {
@@ -41,7 +42,8 @@
       "category": "Psikologi",
       "options": [
         {"answer": "Ya", "next_question_id": 5, "value": 3, "education": null},
-        {"answer": "Tidak", "next_question_id": 5, "value": 0, "education": null}
+        {"answer": "Tidak", "next_question_id": 5, "value": 0, "education": null},
+        {"answer": "Tidak ada tanggapan", "next_question_id": 5, "value": 0, "education": null}
       ]
     },
     {
@@ -120,9 +122,9 @@
       "category": "Psikologi",
       "options": [
         {"answer": "Tidak pernah", "next_question_id": 101, "value": 0, "education": null},
-        {"answer": "Pernah, sebanuyak 1 kali", "next_question_id": 12, "value": 1, "education": "Edukasi mengenai seks bebas"},
-        {"answer": "Pernah, sebanuyak 2 kali", "next_question_id": 12, "value": 2, "education": "Edukasi mengenai seks bebas"},
-        {"answer": "Pernah, sebanuyak 3 kali", "next_question_id": 12, "value": 3, "education": "Edukasi mengenai seks bebas"},
+        {"answer": "Pernah, sebanyak 1 kali", "next_question_id": 12, "value": 1, "education": "Edukasi mengenai seks bebas"},
+        {"answer": "Pernah, sebanyak 2 kali", "next_question_id": 12, "value": 2, "education": "Edukasi mengenai seks bebas"},
+        {"answer": "Pernah, sebanyak 3 kali", "next_question_id": 12, "value": 3, "education": "Edukasi mengenai seks bebas"},
         {"answer": "Pernah lebih dari 3 kali", "next_question_id": 12, "value": 3, "education": "Edukasi mengenai seks bebas"}
       ]
     },
@@ -349,9 +351,9 @@
       "expert_recommendation": "Apakah Anda pernah berada dalam periode jendela (window period), yaitu dalam 3 bulan terakhir setelah melakukan perilaku berisiko?",
       "category": "Resiko",
       "options": [
-        {"answer": "Ya", "next_question_id": -1, "value": 3, "education": null},
-        {"answer": "Tidak", "next_question_id": -1, "value": 0, "education": null},
-        {"answer": "Tidak Tahu", "next_question_id": -1, "value": 1, "education": null}
+        {"answer": "Ya", "next_question_id": null, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": null, "value": 0, "education": null},
+        {"answer": "Tidak Tahu", "next_question_id": null, "value": 1, "education": null}
       ]
     }
   ]
