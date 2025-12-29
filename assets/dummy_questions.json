@@ -351,9 +351,9 @@
       "expert_recommendation": "Apakah Anda pernah berada dalam periode jendela (window period), yaitu dalam 3 bulan terakhir setelah melakukan perilaku berisiko?",
       "category": "Resiko",
       "options": [
-        {"answer": "Ya", "next_question_id": null, "value": 3, "education": null},
-        {"answer": "Tidak", "next_question_id": null, "value": 0, "education": null},
-        {"answer": "Tidak Tahu", "next_question_id": null, "value": 1, "education": null}
+        {"answer": "Ya", "next_question_id": -1, "value": 3, "education": null},
+        {"answer": "Tidak", "next_question_id": -1, "value": 0, "education": null},
+        {"answer": "Tidak Tahu", "next_question_id": -1, "value": 1, "education": null}
       ]
     }
   ]
