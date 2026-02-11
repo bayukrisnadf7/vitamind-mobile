@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vitamind_mobile/models/ResetPasswordModel.dart';
 
-
 class ResetPasswordService {
-  static const String baseUrl = 'http://192.168.18.27:3000/api';
+  static const String baseUrl = 'http://192.168.1.7:3000/api';
 
   static Future<ResetPasswordModel> forgotPassword(String email) async {
     final url = Uri.parse('$baseUrl/forgot-password');
@@ -21,14 +20,21 @@ class ResetPasswordService {
     } else {
       try {
         final decoded = jsonDecode(response.body);
-        final message = decoded['message'] ?? decoded['error'] ?? 'Gagal mengirim email reset password';
+        final message =
+            decoded['message'] ??
+            decoded['error'] ??
+            'Gagal mengirim email reset password';
         throw Exception(message);
       } catch (_) {
         throw Exception('Gagal mengirim email reset password');
       }
     }
   }
-  static Future<ResetPasswordModel> verifyCode(String email, String code) async {
+
+  static Future<ResetPasswordModel> verifyCode(
+    String email,
+    String code,
+  ) async {
     final url = Uri.parse('$baseUrl/verify-code');
 
     final response = await http.post(
@@ -43,7 +49,10 @@ class ResetPasswordService {
     } else {
       try {
         final decoded = jsonDecode(response.body);
-        final message = decoded['message'] ?? decoded['error'] ?? 'Kode verifikasi salah atau telah kedaluwarsa';
+        final message =
+            decoded['message'] ??
+            decoded['error'] ??
+            'Kode verifikasi salah atau telah kedaluwarsa';
         throw Exception(message);
       } catch (_) {
         throw Exception('Kode verifikasi salah atau telah kedaluwarsa');
@@ -51,7 +60,10 @@ class ResetPasswordService {
     }
   }
 
-  static Future<ResetPasswordModel> resetPassword(String email, String password) async {
+  static Future<ResetPasswordModel> resetPassword(
+    String email,
+    String password,
+  ) async {
     final url = Uri.parse('$baseUrl/reset-password');
 
     final response = await http.post(
@@ -66,7 +78,8 @@ class ResetPasswordService {
     } else {
       try {
         final decoded = jsonDecode(response.body);
-        final message = decoded['message'] ?? decoded['error'] ?? 'Gagal mereset password';
+        final message =
+            decoded['message'] ?? decoded['error'] ?? 'Gagal mereset password';
         throw Exception(message);
       } catch (_) {
         throw Exception('Gagal mereset password');

@@ -81,7 +81,11 @@ class _LoginState extends State<Login> {
     setState(() => _isLoading = true);
 
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email'], serverClientId: "752964760317-tl19rniqhqkq7iafdfuhfdcqgehuq73g.apps.googleusercontent.com");
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: ['email'],
+        serverClientId:
+            "752964760317-2nhle0k8nvhupa5etcme96ou1dc0jidi.apps.googleusercontent.com",
+      );
 
       final GoogleSignInAccount? account = await googleSignIn.signIn();
 
@@ -95,37 +99,34 @@ class _LoginState extends State<Login> {
 
       if (idToken == null) throw Exception("ID Token is null");
 
-      final data = await AuthService.loginWithGoogle(tokenId: idToken);
+      final response = await AuthService.loginWithGoogle(tokenId: idToken);
 
-      if (data['success']) {
+      if (response['success'] == true) {
+        final user = response['user'];
+        final token = response['token'];
+
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('nama', data['user']['nama']);
-        await prefs.setString('email', data['user']['email']);
-        await prefs.setString('token', data['token']);
-        await prefs.setString('user_id', data['user']['id'].toString());
-        final user = Get.put(UserModel.fromJson(data['user']));
+        await prefs.setString('nama', user['name'] ?? '');
+        await prefs.setString('email', user['email'] ?? '');
+        await prefs.setString('token', token);
+        await prefs.setString('user_id', user['user_id'].toString());
+
         Get.snackbar(
           'Login berhasil',
-          'Selamat datang, ${user.nama}!',
+          'Selamat datang, ${user['name']}!',
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green.withOpacity(0.8),
+          backgroundColor: Colors.green,
           colorText: Colors.white,
-          margin: const EdgeInsets.all(12),
-          borderRadius: 10,
         );
+
         Get.offAll(() => const MainNavigation());
       } else {
-        throw Exception(data['message']);
+        throw Exception(response['message']);
       }
     } catch (e) {
-      String message = e.toString();
-
-      if (e is PlatformException) {
-        message = e.message ?? "Google login failed";
-      }
       Get.snackbar(
         "Error",
-        message,
+        e.toString(),
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:vitamind_mobile/models/PsikologModel.dart';
 
 class PsikologService {
-  static const String baseUrl = 'http://192.168.18.27:3000/api/psikolog';
+  static const String baseUrl = 'http://192.168.1.7:3000/api/psikolog';
 
   static Future<List<PsikologModel>> getPendaftaranPsikolog(
     String userId,
@@ -27,6 +27,7 @@ class PsikologService {
       throw Exception('Failed to load psikolog: ${response.statusCode}');
     }
   }
+
   static Future<void> registerPsikolog(Map<String, dynamic> data) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register'),
